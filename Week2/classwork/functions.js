@@ -1,6 +1,12 @@
 // 1. Write a JavaScript program to find the longest string in a given array
 function findLongestString(arr) {
   // Your code here
+  var longest = arr[0];
+  for(let str of arr){
+    if (str.length > longest.length){
+      return longest;
+    }
+  }
 }
 
 // Test for findLongestString
@@ -11,6 +17,7 @@ console.log("Expected: banana, Output: ", findLongestString(testArr1));
 // 2. Write an arrow function that calculates the area of a rectangle
 const calculateArea = () => {
   // Your code here
+  return length * innerHeight;
 };
 
 // Test for calculateArea

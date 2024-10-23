@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Weather APIs</title>
+	<meta charset="UTF-8" />
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<div id='main-container'>
+		<h4 id='lat'></h4>
+		<h4 id='lon'></h4>
+		<h4 id='temp'></h4>
+		<button id='getTemp' onclick="getData()">Get Temperature for Austin, TX</button>
+	</div>
+</body>
+
+<script>
+		const apiKey = 
+		"9a9d273fcaf4ef77aae7cccbce3da359";
+
+		let temp;
+		let lat;
+		let lon;
+
+		function getData() {
+			let apiCall = `http://api.openweathermap.org/geo/1.0/direct?q=Austin, TX, USA
+			&limit=5&appid=9a9d273fcaf4ef77aae7cccbce3da359`;
+			// get lat and long
+			fetch(apiCall)
+				.then((response) => response.json())
+				.then((data) => {
+					console.log(data)
+
+					console.log(data[0])
+					console.log(data[0].lat)
+					lat = data[0].lat
+					lon = data[0].lon
+					
+					renderLatLon()
+					getTemp()
+				})
+			// get temp
+		}
+
+		function renderLatLon() {
+			document.querySelector("#lat").innerHTML = "Latitude" + lat
+			document.querySelector("#lon").innerHTML = "Longitude" + lon
+		}
+
+		function getTemp() {
+			apiCall = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`;
+			fetch (apiCall)
+			.then((response) => response.json())
+			.then((data) => {
+					console.log(data.main.temp)
+
+					temp = data.main.temp;
+					renderTemp()
+				})
+		}
+
+        
+		function renderTemp() {
+			document.querySelector("#temp").innerHTML = "temperature" + temp;
+		}
+	</script>
+</html>
